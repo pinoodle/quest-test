@@ -5,6 +5,7 @@ Public Class OptionsDialog
     Private fontFamily As String
     Private fontSize As Single
     Private fontStyle As FontStyle
+    Private chkDarkMode As CheckBox
 
     Public Sub New()
         ' This call is required by the designer.
@@ -22,6 +23,13 @@ Public Class OptionsDialog
         txtGamesFolder.Text = Options.Instance.GetStringValue(OptionNames.GamesFolder)
         chkPlaySounds.Checked = Options.Instance.GetBooleanValue(OptionNames.PlaySounds)
         chkUseSAPI.Checked = Options.Instance.GetBooleanValue(OptionNames.UseSAPI)
+        chkDarkMode = New CheckBox()
+        chkDarkMode.AutoSize = True
+        chkDarkMode.Name = "chkDarkMode"
+        chkDarkMode.Text = "Use dark mode"
+        chkDarkMode.Location = New Point(chkUseSAPI.Left, chkUseSAPI.Bottom + 6)
+        TabPage1.Controls.Add(chkDarkMode)
+        chkDarkMode.Checked = Options.Instance.GetBooleanValue(OptionNames.DarkMode)
         UpdateSampleText()
     End Sub
 
@@ -65,6 +73,7 @@ Public Class OptionsDialog
         Options.Instance.SetStringValue(OptionNames.GamesFolder, txtGamesFolder.Text)
         Options.Instance.SetBooleanValue(OptionNames.PlaySounds, chkPlaySounds.Checked)
         Options.Instance.SetBooleanValue(OptionNames.UseSAPI, chkUseSAPI.Checked)
+        Options.Instance.SetBooleanValue(OptionNames.DarkMode, chkDarkMode.Checked)
         Me.Hide()
     End Sub
 

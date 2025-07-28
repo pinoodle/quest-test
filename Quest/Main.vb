@@ -45,6 +45,8 @@ Public Class Main
         AddHandler ctlLauncher.EditGame, AddressOf ctlLauncher_EditGame
         AddHandler ctlLauncher.LaunchGame, AddressOf ctlLauncher_LaunchGame
         AddHandler ctlLauncher.Tutorial, AddressOf ctlLauncher_Tutorial
+
+        ApplyTheme(Options.Instance.GetBooleanValue(OptionNames.DarkMode))
     End Sub
 
     Private Sub CurrentDispatcher_UnhandledException(sender As Object, e As System.Windows.Threading.DispatcherUnhandledExceptionEventArgs)
@@ -465,7 +467,33 @@ Public Class Main
                 ctlPlayer.PlaySounds = Options.Instance.GetBooleanValue(OptionNames.PlaySounds)
             Case OptionNames.UseSAPI
                 ctlPlayer.UseSAPI = Options.Instance.GetBooleanValue(OptionNames.UseSAPI)
+            Case OptionNames.DarkMode
+                ApplyTheme(Options.Instance.GetBooleanValue(OptionNames.DarkMode))
         End Select
+    End Sub
+
+    Private Sub ApplyTheme(dark As Boolean)
+        Dim bg As Color
+        Dim fg As Color
+        If dark Then
+            bg = Color.FromArgb(45, 45, 48)
+            fg = Color.White
+        Else
+            bg = Color.GhostWhite
+            fg = SystemColors.ControlText
+        End If
+        ApplyThemeToControl(Me, bg, fg)
+        If ctlLauncher IsNot Nothing Then
+            ctlLauncher.ApplyDarkTheme(dark)
+        End If
+    End Sub
+
+    Private Sub ApplyThemeToControl(ctrl As Control, bg As Color, fg As Color)
+        ctrl.BackColor = bg
+        ctrl.ForeColor = fg
+        For Each child As Control In ctrl.Controls
+            ApplyThemeToControl(child, bg, fg)
+        Next
     End Sub
 
 End Class

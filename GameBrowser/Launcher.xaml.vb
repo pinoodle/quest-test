@@ -23,6 +23,26 @@ Public Class Launcher
         AddHandler ctlEditBrowser.Tutorial, AddressOf ctlEditBrowser_Tutorial
     End Sub
 
+    Public Sub ApplyDarkTheme(isDark As Boolean)
+        Dim darkBg As New System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(45, 45, 48))
+        Dim darkFg As System.Windows.Media.Brush = System.Windows.Media.Brushes.White
+        Dim lightBg As New System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(243, 243, 249))
+        Dim lightFg As System.Windows.Media.Brush = System.Windows.Media.Brushes.Black
+        Dim bg As System.Windows.Media.Brush = If(isDark, darkBg, lightBg)
+        Dim fg As System.Windows.Media.Brush = If(isDark, darkFg, lightFg)
+
+        Me.Background = bg
+        root.Background = bg
+        ctlTabs.Background = bg
+        ctlTabs.Foreground = fg
+        For Each item As System.Windows.Controls.TabItem In ctlTabs.Items
+            item.Background = bg
+            item.Foreground = fg
+        Next
+        ctlPlayBrowser.ApplyDarkTheme(isDark)
+        ctlEditBrowser.ApplyDarkTheme(isDark)
+    End Sub
+
     Public Sub AddToRecent(filename As String, name As String)
         ctlPlayBrowser.AddToRecent(filename, name)
     End Sub
