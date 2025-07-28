@@ -97,6 +97,18 @@ Public Class PlayBrowser
         ctlOnlineGameList.UnselectCurrentItem()
     End Sub
 
+    Public Sub ApplyDarkTheme(isDark As Boolean)
+        Dim darkBg As New Windows.Media.SolidColorBrush(Windows.Media.Color.FromRgb(45, 45, 48))
+        Dim darkFg As Windows.Media.Brush = Windows.Media.Brushes.White
+        Dim lightBg As New Windows.Media.SolidColorBrush(Windows.Media.Color.FromRgb(255, 255, 255))
+        Dim lightFg As Windows.Media.Brush = Windows.Media.Brushes.Black
+        Dim bg As Windows.Media.Brush = If(isDark, darkBg, lightBg)
+        Dim fg As Windows.Media.Brush = If(isDark, darkFg, lightFg)
+        root.Background = bg
+        root.Foreground = fg
+        ctlGameDescription.ApplyDarkTheme(isDark)
+    End Sub
+
     Public Property DownloadFolder As String
         Get
             Return ctlOnlineGameList.DownloadFolder

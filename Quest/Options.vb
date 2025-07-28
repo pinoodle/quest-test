@@ -12,6 +12,7 @@ Public Enum OptionNames
     GamesFolder
     PlaySounds
     UseSAPI
+    DarkMode
 End Enum
 
 Public Class Options
@@ -39,7 +40,8 @@ Public Class Options
                         "Quest Games",
                         "Downloaded Games")},
         {OptionNames.PlaySounds, True.ToString()},
-        {OptionNames.UseSAPI, False.ToString()}
+        {OptionNames.UseSAPI, False.ToString()},
+        {OptionNames.DarkMode, False.ToString()}
     }
 
     Public Event OptionChanged(optionName As OptionNames)
